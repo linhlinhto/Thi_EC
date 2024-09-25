@@ -1,4 +1,5 @@
- LbMotion.runLR(mspeedL, mspeedR);
+void Mission4(){
+  LbMotion.runLR(mspeedL, mspeedR);
   int distanceleft = LbIRArray.read(ir6L);        // doc gia tri cacm bien
   int distanceright = LbIRArray.read(ir7R);
   while(distanceleft >= 760 && distanceright >= 760){   // cho den khi vao duong di
@@ -30,3 +31,4 @@
   LbMotion.waitDistanceMm(2000);   //  sau khi het duong phai ne di them 2 cm de den giua o dich
   LbMotion.runLR(0, 0);  //  dung xe
   mission4sucess = true;  
+}
