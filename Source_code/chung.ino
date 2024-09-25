@@ -61,12 +61,12 @@ void Mission4(){
     distanceleft = LbIRArray.read(ir6L);
     distanceright = LbIRArray.read(ir7R);     // kiem tra lai gia tri
 
-    if(distanceleft< distanceright-30){       // neu ben trai gan hon
+    if(distanceleft< distanceright-5){       // neu ben trai gan hon
       mspeedR = 0;                        
       mspeedL = 2000;             //giam toc do banh phai
     }
 
-    else if(distanceright< distanceleft-30){     // neu ben phai gan hon
+    else if(distanceright< distanceleft-5){     // neu ben phai gan hon
       mspeedR = 2000;
       mspeedL = 0;            // giam toc do banh trai
     }
