@@ -1,6 +1,6 @@
 void Mission4(){
   LbMotion.runLR(mspeedL, mspeedR);
-  int distanceleft = LbIRArray.read(ir6L);        // doc gia tri cacm bien
+  int distanceleft = LbIRArray.read(ir6L);        // doc gia tri cam bien
   int distanceright = LbIRArray.read(ir7R);
   while(distanceleft >= 760 && distanceright >= 760){   // cho den khi vao duong di
     distanceleft = LbIRArray.read(ir6L);      
