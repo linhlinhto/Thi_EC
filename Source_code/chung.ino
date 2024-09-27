@@ -79,7 +79,7 @@ void Mission4(){
     LbMotion.runLR(mspeedL, mspeedR);  //  dat toc do cho 2 banh 
   }
 
-  LbMotion.waitDistanceMm(2000);   //  sau khi het duong di them 2 cm de den giua o dich
+  LbMotion.waitDistanceMm(20);   //  sau khi het duong di them 2 cm de den giua o dich
   LbMotion.runLR(0, 0);  //  dung xe
   mission4sucess = true;  
 }
