@@ -15,6 +15,7 @@ bool mission1sucess = false;      // khong duoc thay doi tham so o day
 bool mission2sucess = false;      // khong duoc thay doi tham so o day
 bool mission3sucess = false;      // khong duoc thay doi tham so o day
 bool mission4sucess = false;      // khong duoc thay doi tham so o day
+int centdist = 43;
 
 
 void setup() {
@@ -69,10 +70,10 @@ void Mission1(){
     }
   }
   LbMotion.runLR(mspeedL, mspeedR);
-  LbMotion.waitDistanceMm(43);
+  LbMotion.waitDistanceMm(cendist);
   LbGripper.close();
   LbMotion.runLR(mspeedL, mspeedR);
-  LbMotion.waitDistanceMm(43);
+  LbMotion.waitDistanceMm(cendist);
   LbMotion.runRotationDeg(-mspeedL, mspeedR, -90);
   mission1sucess = true;
 
