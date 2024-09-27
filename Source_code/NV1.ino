@@ -8,6 +8,7 @@ void Mission1(){
       runFollowLine();
       LbMotion.runLR(mspeedL, mspeedR);
       d = Leanbot.pingCm();
+      LbDelay(50);
     }
     else if(d < 5){
       
