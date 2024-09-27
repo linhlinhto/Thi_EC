@@ -38,6 +38,31 @@ void loop() {
   }
 }
 
+
+byte junctionSpot(){
+    byte state = 0x00;
+    if(irScan(ir4)){
+        state = 0x10; // Left line existing
+        if(irScan(ir7)){
+            state = 0x11; // 2 side lines existing
+        }
+    }
+    elif(irScan(ir5)){
+        state = 0x01; //Right line existing
+    }
+    return state; //Return no side lines existing by default
+}
+//Scan with a customized threshold
+boolean irScan(int irX){
+  int threshold = 0; //Chỉnh threshold ở đây
+  int value = LbIRArray.read(irX);
+  if(value >= threshold){
+    return true;
+  }
+  return false;
+  
+}
+
 void Mission1(){
   while(!LbIRLine.isBlackDetected()){
     LbMotion.runLR(mspeedL, mspeedR);
