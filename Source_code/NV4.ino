@@ -1,34 +1,62 @@
+#include <Leanbot.h>                    // use Leanbot library
+
+unsigned int SPEED_MAX = 2000;             // run at a maximum speed of 1000
+unsigned int SPEED_4   = 0.8 * SPEED_MAX;  // run at 80% speed
+unsigned int SPEED_3   = 0.6 * SPEED_MAX;  // run at 60% speed
+unsigned int SPEED_2   = 0.4 * SPEED_MAX;  // run at 40% speed
+unsigned int SPEED_1   = 0.2 * SPEED_MAX;  // run at 20% speed
+unsigned int SPEED_0   = 0.0 * SPEED_MAX;  // stop
+
+bool mission4flag = false;
+
+void setup() {
+  Leanbot.begin();                // initialize Leanbot
+  Serial.begin(115200);
+}
+
+
+
 void Mission4(){
-  LbMotion.runLR(mspeedL, mspeedR);
+  LbMotion.runLR(SPEED_MAX,SPEED_MAX);
   int distanceleft = LbIRArray.read(ir6L);        // doc gia tri cam bien
   int distanceright = LbIRArray.read(ir7R);
-  while(distanceleft >= 760 && distanceright >= 760){   // cho den khi vao duong di
-    distanceleft = LbIRArray.read(ir6L);      
-    distanceright = LbIRArray.read(ir7R);     // kiem tra lai gia tri
-  }
-  while(distanceleft < 760 && distanceright < 760){     // khi da vao duong di
-    distanceleft = LbIRArray.read(ir6L);
-    distanceright = LbIRArray.read(ir7R);     // kiem tra lai gia tri
-
-    if(distanceleft< distanceright-5){       // neu ben trai gan hon
-      mspeedR = 0;                        
-      mspeedL = 2000;             //giam toc do banh phai
+   LbMotion.waitDistanceMm(43);
+ 
+  Serial.println(distanceleft);
+  Serial.println(distanceright);
+  while(true){
+    distanceleft = LbIRArray.read(ir6L);        // doc gia tri cam bien
+    distanceright = LbIRArray.read(ir7R);
+    Serial.println(distanceleft);
+    Serial.println(distanceright);
+    if(distanceleft < distanceright-30){       // neu ben trai gan hon
+      Serial.println("banh trai gan hon");
+      LbMotion.runLR(SPEED_MAX,SPEED_0);               //giam toc do banh phai
     }
 
-    else if(distanceright< distanceleft-5){     // neu ben phai gan hon
-      mspeedR = 2000;
-      mspeedL = 0;            // giam toc do banh trai
+    else if(distanceright< distanceleft-30){     // neu ben phai gan hon
+      Serial.println("banh phai gan hon");
+      LbMotion.runLR(SPEED_0,SPEED_MAX);
+                 // giam toc do banh trai
     }
 
     else{          //  neu bang nhau
-      mspeedR = 2000;
-      mspeedL = 2000;   //   toc do 2 banh bang nhau
+      LbMotion.runLR(SPEED_MAX,SPEED_MAX);
+        //   toc do 2 banh bang nhau
     }
+    if(distanceleft > 760 && distanceright > 760){
+      break;
+    } 
+  }
+  LbMotion.waitDistanceMm(85);
+  LbMotion.runLR(SPEED_0,SPEED_0);
+  mission4flag = true;
 
-    LbMotion.runLR(mspeedL, mspeedR);  //  dat toc do cho 2 banh 
   }
 
-  LbMotion.waitDistanceMm(20);   //  sau khi het duong phai ne di them 2 cm de den giua o dich
-  LbMotion.runLR(0, 0);  //  dung xe
-  mission4sucess = true;  
+void loop(){
+  if(mission4flag == false){
+  Mission4();
+  }
 }
+
